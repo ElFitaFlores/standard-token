@@ -26,10 +26,11 @@ contract('StandardToken',(accounts) => {
 		it('should transfer between accounts',async() => {
 			let standardToken = await StandardToken.deployed()
 			let approveRes = await standardToken.approve(accounts[0],500)
-			let transferFromRes = await standardToken.transferFrom(accounts[0],accounts[2],100,{from: accounts[0]})
-
 			assert(approveRes,'approve failed')
+			
+			let transferFromRes = await standardToken.transferFrom(accounts[0],accounts[2],100,{from: accounts[0]})
 			assert(transferFromRes,'transfer from failed')
+			
 			let newBalance = await standardToken.balanceOf(accounts[2])
 			assert(newBalance.eq(new BN(100)),
 					`balance is ${newBalance}, should be 100`)
